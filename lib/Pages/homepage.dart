@@ -2,9 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:vlossom/Cards/albums_cards.dart';
 import 'package:vlossom/Cards/artist.dart';
 import 'package:vlossom/Cards/songs_list.dart';
+import 'package:vlossom/Pages/minisongslist.dart';
+import 'package:vlossom/Pages/models.dart';
 import 'package:vlossom/Widgets/appdrawer.dart';
 import 'package:vlossom/Widgets/carousel.dart';
 import 'package:vlossom/Widgets/myappbar.dart';
+import 'package:vlossom/bottomnavbar.dart';
+import 'dart:async';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+
+Future<List<Post>> fetchPosts() async {
+  http.Response response =
+      await http.get(Uri.parse("https://jsonplaceholder.typicode.com/photos"));
+  print(response.body);
+  var responseJson = json.decode(response.body);
+  return (responseJson as List).map((p) => Post.fromJson(p)).toList();
+}
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -15,12 +29,21 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   @override
+  void initState() {
+    super.initState();
+    fetchPosts();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
+            bottomNavigationBar: BottomNav(index: 0),
             extendBodyBehindAppBar: true,
-            appBar: const MyAppBar(),
-            drawer: const AppDrawer(),
+            appBar: MyAppBar(
+              title: 'Vlossom',
+            ),
+            // drawer: const AppDrawer(),
             body: Container(
                 decoration: const BoxDecoration(
                     gradient: LinearGradient(
@@ -65,7 +88,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                             SingleChildScrollView(
                               physics: BouncingScrollPhysics(),
-                              //  scrollDirection: Axis.horizontal,
+                              scrollDirection: Axis.horizontal,
                               child: Row(
                                 children: const [
                                   AlbumCard(),
@@ -106,42 +129,28 @@ class _HomePageState extends State<HomePage> {
                                           fontSize: 20, color: Colors.white),
                                     ),
                                   ),
-                                  Container(
-                                    child: const Text(
-                                      "See all",
-                                      textAlign: TextAlign.end,
-                                      style: TextStyle(color: Colors.white),
+                                  Material(
+                                    color: Colors.transparent,
+                                    child: InkWell(
+                                      onTap: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    SongsList()));
+                                      },
+                                      child: Text(
+                                        "See all",
+                                        textAlign: TextAlign.end,
+                                        style: TextStyle(color: Colors.white),
+                                      ),
                                     ),
                                   ),
                                 ]),
-                            const SizedBox(
+                            SizedBox(
                               height: 20,
                             ),
-                            SingleChildScrollView(
-                              clipBehavior: Clip.antiAlias,
-                              physics: BouncingScrollPhysics(),
-                              scrollDirection: Axis.horizontal,
-                              child: Row(
-                                children: [
-                                  Column(
-                                    children: const [
-                                      SongsList(),
-                                      SongsList(),
-                                      SongsList(),
-                                      SongsList(),
-                                    ],
-                                  ),
-                                  Column(
-                                    children: const [
-                                      SongsList(),
-                                      SongsList(),
-                                      SongsList(),
-                                      SongsList(),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
+                            MiniSongs(),
                             SizedBox(
                               height: 30,
                             ),

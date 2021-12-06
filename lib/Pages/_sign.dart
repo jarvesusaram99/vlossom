@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:vlossom/main.dart';
-import 'package:vlossom/Widgets/playing.dart';
+// import 'package:vlossom/main.dart';
+// import 'package:vlossom/Widgets/playing.dart';
 
 import 'homepage.dart';
 

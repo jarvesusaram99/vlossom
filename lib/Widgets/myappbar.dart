@@ -1,23 +1,39 @@
 import 'package:flutter/material.dart';
 
-class MyAppBar extends StatelessWidget  implements PreferredSizeWidget {
-  const MyAppBar({ Key? key }) : super(key: key);
+class MyAppBar extends StatefulWidget implements PreferredSizeWidget {
+  // MyAppBar({Key? key}) : super(key: key);
+  final String title;
 
-@override
+  MyAppBar({required this.title});
+
+  @override
+  State<MyAppBar> createState() => _MyAppBarState();
+
+  @override
+  Size get preferredSize => const Size.fromHeight(100);
+}
+
+class _MyAppBarState extends State<MyAppBar> {
+  @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(15, 0,16,0),
+      padding: const EdgeInsets.fromLTRB(15, 0, 16, 0),
       child: AppBar(
-       backgroundColor: Colors.transparent,
-            elevation: 0,
-            title: Center(child: Text("Vlossom")),
-            actions: [
-              IconButton(onPressed: (){}, icon: Icon(Icons.search))
-            ],
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        title: Text(
+          widget.title,
+          textAlign: TextAlign.start,
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        actions: [
+          IconButton(onPressed: () {}, icon: Icon(Icons.search)),
+          IconButton(onPressed: () {}, icon: Icon(Icons.account_circle))
+        ],
       ),
     );
   }
 
-  @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+  // @override
+  // Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }

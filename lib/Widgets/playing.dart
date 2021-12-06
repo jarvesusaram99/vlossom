@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:lottie/lottie.dart';
-
-void main() => runApp(Playing());
+// import 'package:vlossom/Pages/models.dart';
 
 class Playing extends StatefulWidget {
-  const Playing({Key? key}) : super(key: key);
+  final String s;
+  final String p;
+  const Playing({Key? key, required this.s, required this.p}) : super(key: key);
 
   @override
   _PlayingState createState() => _PlayingState();
@@ -184,7 +185,7 @@ class _PlayingState extends State<Playing> {
                         ),
                         Container(
                           child: Text(
-                            "Therefore I am",
+                            widget.p.toString(),
                             style: TextStyle(
                               fontSize: 26,
                               color: Colors.white,

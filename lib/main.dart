@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:vlossom/Pages/_sign.dart';
+import 'package:vlossom/Pages/explore.dart';
 
 import 'package:vlossom/Pages/homepage.dart';
 import 'package:vlossom/Widgets/prgressbar.dart';

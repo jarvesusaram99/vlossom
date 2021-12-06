@@ -15,23 +15,15 @@ class _AlbumCardState extends State<AlbumCard> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        InkWell(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => Playing()),
-            );
-          },
-          child: Container(
-            height: 100.0,
-            width: 100.0,
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('assets/eminem_marshal.jpg'),
-                  fit: BoxFit.fill,
-                ),
-                borderRadius: BorderRadius.circular(12)),
-          ),
+        Container(
+          height: 100.0,
+          width: 100.0,
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/eminem_marshal.jpg'),
+                fit: BoxFit.fill,
+              ),
+              borderRadius: BorderRadius.circular(12)),
         ),
         SizedBox(
           height: 7,
