@@ -8,9 +8,9 @@ import 'package:vlossom/Widgets/playing.dart';
 import 'package:vlossom/bottomnavbar.dart';
 
 Future<List<Post>> fetchPosts() async {
-  http.Response response =
-      await http.get(Uri.parse("https://jsonplaceholder.typicode.com/photos"));
-  if (response.statusCode == 20) {
+  http.Response response = await http.get(
+      Uri.parse("http://leafcreations.in/vlossum/logincontroller/getsonglist"));
+  if (response.statusCode == 200) {
     print("200");
   } else
     print("400");
@@ -26,6 +26,8 @@ class SongsList extends StatefulWidget {
 }
 
 class _SongsListState extends State<SongsList> {
+  String base_url = "https://www.leafcreations.in/vlossum";
+
   @override
   void initState() {
     super.initState();
@@ -96,12 +98,12 @@ class _SongsListState extends State<SongsList> {
                                                 MaterialPageRoute(
                                                     builder: (context) =>
                                                         Playing(
-                                                          s: snapshot
-                                                              .data[index]
-                                                              .thumbnailUrl,
+                                                          s: base_url +
+                                                              snapshot
+                                                                  .data[index]
+                                                                  .image,
                                                           p: snapshot
-                                                              .data[index]
-                                                              .title,
+                                                              .data[index].name,
                                                         )));
                                           },
                                           child: Row(
@@ -114,11 +116,13 @@ class _SongsListState extends State<SongsList> {
                                                       BorderRadius.circular(10),
                                                 ),
                                                 child: Hero(
-                                                  tag: snapshot
-                                                      .data[index].thumbnailUrl,
+                                                  tag: base_url +
+                                                      snapshot
+                                                          .data[index].image,
                                                   child: Image.network(
-                                                      snapshot.data[index]
-                                                          .thumbnailUrl,
+                                                      base_url +
+                                                          snapshot.data[index]
+                                                              .image,
                                                       fit: BoxFit.fill),
                                                 ),
                                               ),

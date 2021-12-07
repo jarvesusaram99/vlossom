@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vlossom/Cards/albums_cards.dart';
 import 'package:vlossom/Cards/artist.dart';
-import 'package:vlossom/Cards/songs_list.dart';
+import 'package:vlossom/Pages/songs_list.dart';
 import 'package:vlossom/Pages/minisongslist.dart';
 import 'package:vlossom/Pages/models.dart';
 import 'package:vlossom/Widgets/appdrawer.dart';
@@ -12,13 +12,26 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-Future<List<Post>> fetchPosts() async {
-  http.Response response =
-      await http.get(Uri.parse("https://jsonplaceholder.typicode.com/photos"));
-  print(response.body);
-  var responseJson = json.decode(response.body);
-  return (responseJson as List).map((p) => Post.fromJson(p)).toList();
-}
+// Future<List<Post>> fetchPosts() async {
+//   http.Response response =
+//       await http.get(Uri.parse("https://jsonplaceholder.typicode.com/photos"));
+//   print(response.body);
+//   var responseJson = json.decode(response.body);
+//   return (responseJson as List).map((p) => Post.fromJson(p)).toList();
+// }
+
+// Future<List<Post>> fetchPosts() async {
+//   http.Response response = await http
+//       .get(Uri.parse("https://leafcreations.in/vlossum_2/getsongs.php"));
+//   if (response.statusCode == 200) {
+//     print("200");
+//     // print(response.body);
+//   } else
+//     print("400");
+//   var responseJson = json.decode(response.body);
+//   print(responseJson);
+//   return (responseJson as List).map((p) => Post.fromJson(p)).toList();
+// }
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -28,11 +41,11 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  @override
-  void initState() {
-    super.initState();
-    fetchPosts();
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   fetchPosts();
+  // }
 
   @override
   Widget build(BuildContext context) {

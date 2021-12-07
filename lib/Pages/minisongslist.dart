@@ -4,15 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:vlossom/Pages/models.dart';
 import 'package:vlossom/Widgets/playing.dart';
+import 'package:vlossom/constant.dart';
 
 Future<List<Post>> fetchPosts() async {
-  http.Response response =
-      await http.get(Uri.parse("https://jsonplaceholder.typicode.com/photos"));
-  if (response.statusCode == 20) {
+  http.Response response = await http
+      .get(Uri.parse("https://leafcreations.in/vlossum_2/getsongs.php"));
+  if (response.statusCode == 200) {
     print("200");
+    print(response.body);
   } else
     print("400");
   var responseJson = json.decode(response.body);
+  print(responseJson.toString());
   return (responseJson as List).map((p) => Post.fromJson(p)).toList();
 }
 
@@ -29,6 +32,8 @@ class _MiniSongsState extends State<MiniSongs> {
     super.initState();
     fetchPosts();
   }
+
+  // String base_url = "https://www.leafcreations.in/vlossum";
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +63,7 @@ class _MiniSongsState extends State<MiniSongs> {
                         physics: const NeverScrollableScrollPhysics(),
                         padding: EdgeInsets.all(0),
                         // physics: BouncingScrollPhysics(),
-                        itemCount: 8,
+                        itemCount: 3,
                         itemBuilder: (BuildContext context, int index) {
                           return Container(
                               height: 80.0,
@@ -74,10 +79,12 @@ class _MiniSongsState extends State<MiniSongs> {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) => Playing(
-                                                    s: snapshot.data[index]
-                                                        .thumbnailUrl,
-                                                    p: snapshot
-                                                        .data[index].title,
+                                                    s: base_url +
+                                                        snapshot
+                                                            .data[index].image,
+                                                    p: base_url +
+                                                        snapshot
+                                                            .data[index].name,
                                                   )));
                                     },
                                     child: Row(
@@ -89,14 +96,10 @@ class _MiniSongsState extends State<MiniSongs> {
                                             borderRadius:
                                                 BorderRadius.circular(10),
                                           ),
-                                          child: Hero(
-                                            tag: snapshot
-                                                .data[index].thumbnailUrl,
-                                            child: Image.network(
-                                                snapshot
-                                                    .data[index].thumbnailUrl,
-                                                fit: BoxFit.fill),
-                                          ),
+                                          child: Image.network(
+                                              base_url +
+                                                  snapshot.data[index].image,
+                                              fit: BoxFit.fill),
                                         ),
 
                                         Padding(
